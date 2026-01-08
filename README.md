@@ -12,14 +12,4 @@ Here is what I setup on my Ubuntu 24.04 LTS dev box.
 
 sudo apt update
 
-sudo apt install -y \
-    python3-dev \
-    libpq-dev \
-    build-essential \
-    gcc \
-    libssl-dev \
-    libffi-dev \
-    python3-venv \
-    libxml2-dev \
-    libxslt1-dev \
-    zlib1g-dev
+sudo apt install -y python3-dev libpq-dev build-essential gcc libssl-dev libffi-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev

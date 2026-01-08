@@ -21,3 +21,26 @@ Here is what I setup on my Ubuntu 24.04 LTS dev box.
 sudo apt update
 
 sudo apt install -y python3-dev libpq-dev build-essential gcc libssl-dev libffi-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev
+
+After you get postgresql installed and the database created, here are the GRANTs for your user you will need.
+Consider using the postgres superuser to create the database and the tables, then specify a user for handling the data on the database so the schema does not get jacked up/broken/etc.
+
+here are the GRANTS I used on my dev box for the local user
+
+I establish this while in the postgres default db, don't forget the ; at the end.
+
+GRANT CONNECT ON DATABASE shopify_db TO localusername;
+
+then change to the shopify db (no ; required here because its built in command \c)
+
+\c shopify_db
+
+and set these GRANTS. Be sure you have your ; in place.
+
+GRANT USAGE ON SCHEMA public TO localusername;
+
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO localusername;
+
+GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO localusername;
+
+\quit

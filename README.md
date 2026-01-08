@@ -22,6 +22,8 @@ sudo apt update
 
 sudo apt install -y python3-dev libpq-dev build-essential gcc libssl-dev libffi-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev
 
+then swap to your python sandbox and install this:  pip install psycopg2-binary
+
 After you get postgresql installed and the database created, here are the GRANTs for your user you will need.
 Consider using the postgres superuser to create the database and the tables, then specify a user for handling the data on the database so the schema does not get jacked up/broken/etc.
 

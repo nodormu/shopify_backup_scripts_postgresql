@@ -20,9 +20,11 @@ Here is what I setup on my Ubuntu 24.04 LTS dev box.
 
 sudo apt update
 
-sudo apt install -y python3-dev libpq-dev build-essential gcc libssl-dev libffi-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev
+sudo apt install -y python3-dev libpq-dev build-essential gcc libssl-dev libffi-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev python3-pip
 
-then swap to your python sandbox and install this:  pip install psycopg2-binary
+If you have a barebones install, you are going to see a TON of more related deps get installed. This is expected.
+
+Then create your python venv sandbox, activate your python sandbox and install this:  pip install psycopg2-binary requests time psycopg2
 
 After you get postgresql installed and the database created, here are the GRANTs for your user you will need.
 Consider using the postgres superuser to create the database and the tables, then specify a user for handling the data on the database so the schema does not get jacked up/broken/etc.

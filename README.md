@@ -2,7 +2,7 @@
 
 python script works fantastic as is and spells out the work flow with handlers, while rust bin code needs to be explicitly defined.
 
-main.rs mirrors the python script, and tokio-postgres was a horrible option to experiment with at first, and ended up going with sqlx since tokio-postgres 0.8 isn't available natively yet in rust. I don't want to get into pulling github versions just to get this to work and would rather stick with native/stable.
+main.rs mirrors the python script, and tokio-postgres was a horrible option to experiment with at first, and ended up going with sqlx since tokio-postgres 0.6 isn't available natively yet in rust, and I don't have a lot of confidence in it working either at this point. I also don't want to get into pulling newer github versions just to get this to work and would rather stick with native/stable. sqlx seems to work much better anyway. I used Ubuntu 24.04 LTS with official repo postgresql 18, using the latest version of Rust with their offical repos/update process, and python 3.12.x.
 
 --------------------------------------------------
 

@@ -1,50 +1,59 @@
-# shopify_backup_scripts_postgresql
-This repo has the canonical CREATE TABLES for Postgresql 18 and a python script which may be migrated to Rust soon for backing up your shopify storefront.
+0) Don't get me wrong, I understand compiling secure creds into a bin or pasting in a script is not a good answer unless your database is behind a firewall and is NOT serving active connections other than locally rather than living in a cloud. This python script and rust bin mains can at least serve as a testing grounds to evolve into something that could live in the cloud with live connections if needed, but these should only be used for development, or just for getting a full local dump of your shopify store for local usage only, and pushing changes to your shopify store, rather than as a live service in the cloud with active connections.
 
-This was done on Ubuntu 24.04 LTS with Postgres official repo/installation of postgresql 18.
+python script works fantastic as is and spells out the work flow with handlers, while rust bin code needs to be explicitly defined.
 
-Python script was built using Python 3.12.x
+main.rs mirrors the python script, and tokio-postgres was a horrible option to experiment with at first, and ended up going with sqlx since tokio-postgres 0.8 isn't available natively yet in rust. I don't want to get into pulling github versions just to get this to work and would rather stick with native/stable.
 
-Be sure you check the variables and change them for your environment:  username, db password, db name.
+--------------------------------------------------
 
-This particular script uses the shpat_SHORTSTRINGAPIKEY format vs the newer format they are moving to soon.
+The scripts/mains are based on the guidelines of
 
-This uses Graph QL mutations as it works better than Shopify's deprecated REST API.
+1) This is a working database, so if I make changes in the GUI, I can drop the database, recreate it, and re-import the data for complete clean import for further processing, such as additional tag, price, description changes, etc
 
-You need the following python packages:  requests, psycopg2 and time 
+2) logging does not cause the script to exit in main3, but will help offer additional data if shopify changes something, which might require you to reach out to the shopify chatbot for the new/updated canonical mirror CREATE TABLEs output which it is very helpful for providing, or at least at this time.
 
-psycopg2 requires some additional global packages installed along with the python package, a simple query to chatgpt should give you the dependencies you need to install
+3) This is based on the older shpat keys, not the new keys and uses Shopify API from 10/2025.
 
-Here is what I setup on my Ubuntu 24.04 LTS dev box.
+4) The CREATE TABLES is created with the postgres superuser and the local users has access to manipulate the data only via the grants below
 
-
-sudo apt update
-
-sudo apt install -y python3-dev libpq-dev build-essential gcc libssl-dev libffi-dev python3-venv libxml2-dev libxslt1-dev zlib1g-dev python3-pip
-
-If you have a barebones install, you are going to see a TON of more related deps get installed. This is expected.
-
-Then create your python venv sandbox, activate your python sandbox and install this:  pip install psycopg2-binary requests time psycopg2
-
-After you get postgresql installed and the database created, here are the GRANTs for your user you will need.
-Consider using the postgres superuser to create the database and the tables, then specify a user for handling the data on the database so the schema does not get jacked up/broken/etc.
-
-here are the GRANTS I used on my dev box for the local user
-
-I establish this while in the postgres default db, don't forget the ; at the end.
-
-GRANT CONNECT ON DATABASE shopify_db TO localusername;
-
-then change to the shopify db (no ; required here because its built in command \c)
-
+5) The following GRANTS
+GRANT CONNECT ON DATABASE shopify_db TO localusername; (this is what we actually did, so I don't break the schema)
+-- then connect to the DB (as superuser)
 \c shopify_db
-
-and set these GRANTS. Be sure you have your ; in place.
-
 GRANT USAGE ON SCHEMA public TO localusername;
-
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO localusername;
+GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO localusername;-- needed for BIGSERIAL (tags, variant_shipping_costs)
 
-GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO localusername;
+6) For the python script, be sure you put your info here instead of the placeholder strings I have
+SHOPIFY_STORE = "shopify-store-name-url" #you don't have to put .shopify.com, just the store url name part'
+ACCESS_TOKEN = "shpat_SHORTSTRINGHERE"
+API_VERSION = "2025-10"
+PAGE_SIZE = 50
+BACKOFF = 2.0
 
-\quit
+DB_HOST = "localhost"
+DB_NAME = "shopify_database"
+DB_USER = "databaseusernamegoeshere"
+DB_PASSWORD = "dbpasswordgoeshere"
+
+7) For the Rust mains, be sure you put your info here instead of the placeholders strings I have
+const SHOPIFY_STORE: &str = "store-uri";
+const ACCESS_TOKEN: &str = "shpat_SHORTSTRINGHERE";
+const API_VERSION: &str = "2025-10";
+const PAGE_SIZE: i64 = 50;
+const BACKOFF_SECS: u64 = 2;
+
+const DB_HOST: &str = "localhostorip-locationofyourdatabase";
+const DB_NAME: &str = "shopify-database-name-in-your-local-postgresql-18-node";
+const DB_USER: &str = "localusernamethathandlesthedatagoeshere";
+const DB_PASSWORD: &str = "databasepasswordgoeshere";
+
+8) the 2 second wait between calls is a friendly approach so your requests/account does not get dropped by Shopify admins. Dont pound their servers to death, you are not the only person that needs to use it.
+
+9) chatgpt or your choice of ai bot should be able to help as long as you have not littered your logged in profile with random junk requests that only responds in encylopedia based rabbit hole responses. This is important for code development. If you build a garbage profile with your current login, you will only get garbage as a response in most cases, with rabbit holes that are possibly filled with positive hallucination feedback loops, optimism bias, pessimism bias, and straight out inventing things that don't exist, so be sure when you make you're requests for correcting code, that you tell the chatbot to NOT optimize outside of scope, don't break my code, and don't invent things that don't exist for the sake of creative programming.
+
+10) this was built and tested in Ubuntu 24.04 LTS. If you have problems with your postgresql having issues on boot, you may need to restart your postgresql service, as in debian based architectures it has a tendency to lock onto the port before the network service comes up. I just set a cron job to restart the service after the server has been up for 10 seconds, as this is the least invasive way to fix this on boot.
+
+11) I'm using the official rust install and running rustup update. I am NOT using the apt or snap based installations.
+
+

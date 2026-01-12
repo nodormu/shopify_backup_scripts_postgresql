@@ -59,22 +59,22 @@ const DB_PASSWORD: &str = "databasepasswordgoeshere";
 12) Here are some SQL queries I have used to check data via pgadmin client. Be sure to your gid numbers and Vendor names in, or just leave the vendor blank if you don't use that field
 
 SELECT  
-    p.id AS product_gid,  
-    p.title AS product_title,  
-	p.description AS description,  
-    p.handle AS product_handle,  
-    p.online_store_url AS product_url,  
-    v.sku AS variant_sku,  
-    v.price AS variant_price,  
-    p.product_type,  
-    p.vendor  
+        p.id AS product_gid,  
+        p.title AS product_title,  
+	    p.description AS description,  
+        p.handle AS product_handle,  
+        p.online_store_url AS product_url,  
+        v.sku AS variant_sku,  
+        v.price AS variant_price,  
+        p.product_type,  
+        p.vendor  
 FROM  
-    products p  
+        products p  
 LEFT JOIN  
-    product_variants v  
-    ON p.id = v.product_id  
+        product_variants v  
+        ON p.id = v.product_id  
 ORDER BY  
-    p.title ASC  
+        p.title ASC  
 LIMIT 400;  
 
 

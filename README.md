@@ -10,7 +10,7 @@ The scripts/mains are based on the guidelines of
 
 1) This is a working database, so if I make changes in the GUI, I can drop the database, recreate it, and re-import the data for complete clean import for further processing, such as additional tag, price, description changes, etc
 
-2) logging does not cause the script to exit in main, but will help offer additional data if shopify changes something, which might require you to reach out to the shopify chatbot for the new/updated canonical mirror CREATE TABLEs output which it is very helpful for providing, or at least at this time.
+2) errors/failure/etc in logging does not cause the script to exit, but will help offer additional data if shopify changes something, which might require you to reach out to the shopify chatbot for the new/updated canonical mirror CREATE TABLEs output which it is very helpful for providing, or at least at this time.
 
 3) This is based on the older shpat keys, not the new keys and uses Shopify API from 10/2025.
 

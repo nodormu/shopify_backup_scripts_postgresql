@@ -25,28 +25,28 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO localuser
 GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO localusername;-- needed for BIGSERIAL (tags, variant_shipping_costs)
 
 6) For the python script, be sure you put your info here instead of the placeholder strings I have
-SHOPIFY_STORE = "shopify-store-name-url" #you don't have to put .shopify.com, just the store url name part'
-ACCESS_TOKEN = "shpat_SHORTSTRINGHERE"
-API_VERSION = "2025-10"
-PAGE_SIZE = 50
-BACKOFF = 2.0
+SHOPIFY_STORE = "shopify-store-name-url" #you don't have to put .shopify.com, just the store url name part'  
+ACCESS_TOKEN = "shpat_SHORTSTRINGHERE"  
+API_VERSION = "2025-10"  
+PAGE_SIZE = 50  
+BACKOFF = 2.0  
 
-DB_HOST = "localhost"
-DB_NAME = "shopify_database"
-DB_USER = "databaseusernamegoeshere"
-DB_PASSWORD = "dbpasswordgoeshere"
+DB_HOST = "localhost"  
+DB_NAME = "shopify_database"  
+DB_USER = "databaseusernamegoeshere"  
+DB_PASSWORD = "dbpasswordgoeshere"  
 
-7) For the Rust mains, be sure you put your info here instead of the placeholders strings I have
-const SHOPIFY_STORE: &str = "store-uri";
-const ACCESS_TOKEN: &str = "shpat_SHORTSTRINGHERE";
-const API_VERSION: &str = "2025-10";
-const PAGE_SIZE: i64 = 50;
-const BACKOFF_SECS: u64 = 2;
+7) For the Rust mains, be sure you put your info here instead of the placeholders strings I have  
+const SHOPIFY_STORE: &str = "store-uri";  
+const ACCESS_TOKEN: &str = "shpat_SHORTSTRINGHERE";  
+const API_VERSION: &str = "2025-10";  
+const PAGE_SIZE: i64 = 50;  
+const BACKOFF_SECS: u64 = 2;  
 
-const DB_HOST: &str = "localhostorip-locationofyourdatabase";
-const DB_NAME: &str = "shopify-database-name-in-your-local-postgresql-18-node";
-const DB_USER: &str = "localusernamethathandlesthedatagoeshere";
-const DB_PASSWORD: &str = "databasepasswordgoeshere";
+const DB_HOST: &str = "localhostorip-locationofyourdatabase";  
+const DB_NAME: &str = "shopify-database-name-in-your-local-postgresql-18-node";  
+const DB_USER: &str = "localusernamethathandlesthedatagoeshere";  
+const DB_PASSWORD: &str = "databasepasswordgoeshere";  
 
 8) the 2 second wait between calls is a friendly approach so your requests/account does not get dropped by Shopify admins. Dont pound their servers to death, you are not the only person that needs to use it.
 

@@ -7,7 +7,7 @@ use chrono::{DateTime, Utc};
 use sqlx::types::BigDecimal;
 use std::str::FromStr;
 
-const SHOPIFY_STORE: &str = "um7n0e-i5";
+const SHOPIFY_STORE: &str = "store-uri";
 const ACCESS_TOKEN: &str = "shpat_SHORTSTRINGHERE";
 const API_VERSION: &str = "2025-10";
 const PAGE_SIZE: i64 = 50;

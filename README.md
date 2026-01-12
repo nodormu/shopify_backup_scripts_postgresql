@@ -16,13 +16,13 @@ The scripts/mains are based on the guidelines of
 
 4) The CREATE TABLES is created with the postgres superuser and the local users has access to manipulate the data only via the grants below
 
-5) The following GRANTS
-GRANT CONNECT ON DATABASE shopify_db TO localusername; (this is what we actually did, so I don't break the schema)
--- then connect to the DB (as superuser)
-\c shopify_db
-GRANT USAGE ON SCHEMA public TO localusername;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO localusername;
-GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO localusername;-- needed for BIGSERIAL (tags, variant_shipping_costs)
+5) The following GRANTS  
+GRANT CONNECT ON DATABASE shopify_db TO localusername; (this is what we actually did, so I don't break the schema)  
+-- then connect to the DB (as superuser)  
+\c shopify_db  
+GRANT USAGE ON SCHEMA public TO localusername;  
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO localusername;  
+GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO localusername;-- needed for BIGSERIAL (tags, variant_shipping_costs)  
 
 6) For the python script, be sure you put your info here instead of the placeholder strings I have
 SHOPIFY_STORE = "shopify-store-name-url" #you don't have to put .shopify.com, just the store url name part'  

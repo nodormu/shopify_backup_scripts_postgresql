@@ -56,7 +56,7 @@ const DB_PASSWORD: &str = "databasepasswordgoeshere";
 
 11) I'm using the official rust install and running rustup update. I am NOT using the apt or snap based installations.
 
-12) Here are some SQL queries I have used to check data via pgadmin client. Be sure to your gid numbers and Vendor names in, or just leave the vendor blank if you don't use that field
+12) Here are some SQL queries I have used to check data via pgadmin client. Be sure to your gid numbers and Vendor names in, or just leave the vendor blank if you don't use that field. You will have to put the tabs in place, because I hate fighting the stupid soft wraps for the readme.MD files. Its really annoying. I don't understand why github won't fix this so the formatting looks correct when you paste it in.
 
 SELECT  
         p.id AS product_gid,  

@@ -1,10 +1,10 @@
 [package]
-name = "import_shopify_data_to_postgres"
+name = "import_shopify_data_to_postgres18"
 version = "0.1.0"
 edition = "2021"
 
 [[bin]]
-name = "import_shopify_data_to_postgres"
+name = "import_shopify_data_to_postgres18"
 path = "src/main.rs"
 
 [dependencies]

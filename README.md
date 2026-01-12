@@ -43,10 +43,10 @@ const API_VERSION: &str = "2025-10";
 const PAGE_SIZE: i64 = 50;  
 const BACKOFF_SECS: u64 = 2;  
 
-const DB_HOST: &str = "localhostorip-locationofyourdatabase";  
-const DB_NAME: &str = "shopify-database-name-in-your-local-postgresql-18-node";  
-const DB_USER: &str = "localusernamethathandlesthedatagoeshere";  
-const DB_PASSWORD: &str = "databasepasswordgoeshere";  
+  const DB_HOST: &str = "localhostorip-locationofyourdatabase";  
+  const DB_NAME: &str = "shopify-database-name-in-your-local-postgresql-18-node";  
+  const DB_USER: &str = "localusernamethathandlesthedatagoeshere";  
+  const DB_PASSWORD: &str = "databasepasswordgoeshere";  
 
 8) the 2 second wait between calls is a friendly approach so your requests/account does not get dropped by Shopify admins. Dont pound their servers to death, you are not the only person that needs to use it.
 
